@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Clínica Bolívar - Iniciar Sesión</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <img src="{{ url_for('static', filename='images/logoclinica.png') }}" alt="Clínica Bolívar Logo" class="logo">
+        <h1>Bienvenido al Sistema de Reclutamiento con IA</h1>
+        <h2>Iniciar Sesión</h2>
+        {% if personal_list %}
+            <ul class="personal-list">
+                {% for personal in personal_list %}
+                    <li>
+                        {{ personal[1] }} ({{ personal[2] }})
+                        <a href="{{ url_for('welcome', personal_id=personal[0]) }}" class="ingresar-btn">Ingresar</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No hay personal registrado. Crea uno nuevo.</p>
+        {% endif %}
+        <a href="{{ url_for('create') }}">Crear Nuevo Personal</a>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

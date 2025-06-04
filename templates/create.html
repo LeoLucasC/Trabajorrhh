@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Clínica Bolívar - Crear Personal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <img src="{{ url_for('static', filename='images/logoclinica.png') }}" alt="Clínica Bolívar Logo" class="logo">
+        <h1>Crear Nuevo Personal</h1>
+        <form method="post" action="{{ url_for('add_personal') }}" id="addPersonalForm">
+            <div class="form-group">
+                <label for="name">Ingresa tu nombre:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="cargo">De qué cargo eres:</label>
+                <select id="cargo" name="cargo" required>
+                    <option value="" disabled selected>Selecciona tu cargo</option>
+                    <option value="Administración">Administración</option>
+                    <option value="Limpieza">Limpieza</option>
+                    <option value="Enfermería">Enfermería</option>
+                    <option value="Técnica Enfermera">Técnica Enfermera</option>
+                    <option value="Seguridad">Seguridad</option>
+                </select>
+            </div>
+            <button type="submit">Agregar Personal</button>
+        </form>
+        <a href="{{ url_for('index') }}">Volver a Iniciar Sesión</a>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

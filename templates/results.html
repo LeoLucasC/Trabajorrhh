@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultados - Clínica</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Resultados de Análisis - Clínica</h1>
+        <p><strong>Nombre:</strong> {{ name }}</p>
+        <p><strong>Cargo Actual:</strong> {{ cargo }}</p>
+        <p><strong>Área Asignada:</strong> {{ prediction }}</p>
+        <h2>Probabilidades por Área:</h2>
+        <ul class="results-list">
+            {% for area, prob in results.items() %}
+                <li>{{ area }}: <span class="probability">{{ prob }}%</span></li>
+            {% endfor %}
+        </ul>
+        <a href="{{ url_for('index') }}">Volver a subir otro CV</a>
+    </div>
+</body>
+</html>

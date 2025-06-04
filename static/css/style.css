@@ -1,0 +1,181 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-image: url('/static/images/clinicaback.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: inherit;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(6px);
+    z-index: -1;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+.logo {
+    max-width: 250px;
+    margin-bottom: 10px;
+}
+
+h1 {
+    color: #4682B4;
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+h2 {
+    color: #4682B4;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+h3 {
+    color: #4682B4;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+label {
+    color: #4682B4;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"], select, input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #87CEEB;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 14px;
+    background-color: #F0F8FF;
+}
+
+select {
+    appearance: none;
+    cursor: pointer;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="%234682B4"><polygon points="0,0 12,0 6,12"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    background-color: #4682B4;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #356891;
+}
+
+p {
+    color: #333;
+    margin: 10px 0;
+}
+
+.error {
+    color: #FF3333;
+    margin-top: 10px;
+}
+
+.results-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.results-list li {
+    background-color: #F0F8FF;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    color: #333;
+}
+
+.probability {
+    color: #4682B4;
+    font-weight: bold;
+}
+
+.personal-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.personal-list li {
+    background-color: #F0F8FF;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ingresar-btn {
+    color: #FFFFFF;
+    background-color: #4682B4;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.ingresar-btn:hover {
+    background-color: #356891;
+}
+
+a {
+    color: #4682B4;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    margin-top: 20px;
+}
+
+a:hover {
+    text-decoration: underline;
+}

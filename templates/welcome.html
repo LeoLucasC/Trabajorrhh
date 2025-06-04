@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Clínica Bolívar - Subir CVs</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/welcome.css') }}">
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='images/logoclinica.png') }}" alt="Clínica Bolívar Logo" class="logo">
+        <h1>Bienvenido, {{ name }} ({{ cargo }})</h1>
+    </header>
+    <main>
+        <section class="upload-section">
+            <h2>Subir Múltiples CVs</h2>
+            <form method="post" enctype="multipart/form-data" id="uploadForm">
+                <input type="hidden" name="name" value="{{ name }}">
+                <input type="hidden" name="cargo" value="{{ cargo }}">
+                <div class="form-group">
+                    <label for="files">Selecciona tus CVs (PDF, múltiples):</label>
+                    <input type="file" id="files" name="files" accept=".pdf" multiple required>
+                </div>
+                <button type="submit" id="analyzeBtn">Analizar CVs</button>
+            </form>
+            {% if error %}
+                <p class="error">{{ error }}</p>
+            {% endif %}
+        </section>
+
+        {% if results_list %}
+            <section class="results-section">
+                <h2>Resultados de Análisis</h2>
+                {% for result in results_list %}
+                    <div class="result-card">
+                        <h3>CV Analizado</h3>
+                        <p><strong>Área Asignada:</strong> {{ result.prediction }}</p>
+                        <h4>Probabilidades por Área</h4>
+                        <div class="probabilities">
+                            {% for area, prob in result.results.items() %}
+                                <div class="probability-card">
+                                    <p>{{ area }}</p>
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: {{ prob }}%">{{ prob }}%</div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+                <h2>Estadísticas Generales</h2>
+                <div id="chart-container">
+                    <!-- Gráfica se generará dinámicamente con JavaScript -->
+                </div>
+            </section>
+        {% endif %}
+    </main>
+    <footer>
+        <a href="{{ url_for('index') }}">Volver al Inicio</a>
+    </footer>
+    <script src="{{ url_for('static', filename='js/welcome.js') }}"></script>
+</body>
+</html>
