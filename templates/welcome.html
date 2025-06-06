@@ -32,12 +32,12 @@
             <div class="clinica-reclutamiento__stats">
                 <div class="clinica-reclutamiento__stat-card">
                     <i class="fas fa-file-upload"></i>
-                    <span class="clinica-reclutamiento__stat-value" id="totalUploads">0</span>
+                    <span class="clinica-reclutamiento__stat-value" id="totalUploads">{{ cv_count }}</span>
                     <span class="clinica-reclutamiento__stat-label">CVs Analizados</span>
                 </div>
                 <div class="clinica-reclutamiento__stat-card">
                     <i class="fas fa-check-circle"></i>
-                    <span class="clinica-reclutamiento__stat-value" id="successfulMatches">0</span>
+                    <span class="clinica-reclutamiento__stat-value" id="successfulMatches">{{ match_count }}</span>
                     <span class="clinica-reclutamiento__stat-label">Coincidencias</span>
                 </div>
             </div>
@@ -86,7 +86,7 @@
                 {% endif %}
             </section>
 
-            <!-- Sección de resultados -->
+            <!-- Sección de resultados nuevos -->
             {% if results_list %}
             <section class="clinica-reclutamiento__results-section">
                 <div class="clinica-reclutamiento__section-header">
@@ -107,10 +107,11 @@
                         <label for="areaFilter"><i class="fas fa-filter"></i> Filtrar por área:</label>
                         <select id="areaFilter" class="clinica-reclutamiento__filter-select">
                             <option value="all">Todas las áreas</option>
-                            <option value="administracion">Administración</option>
-                            <option value="contabilidad">Contabilidad</option>
-                            <option value="rrhh">Recursos Humanos</option>
-                            <option value="logistica">Logística</option>
+                            <option value="administración">Administración</option>
+                            <option value="enfermería">Enfermería</option>
+                            <option value="limpieza">Limpieza</option>
+                            <option value="técnica enfermera">Técnica Enfermera</option>
+                            <option value="seguridad">Seguridad</option>
                         </select>
                     </div>
                     <div class="clinica-reclutamiento__filter-group">
@@ -136,10 +137,14 @@
                                 <div class="clinica-reclutamiento__prediction-icon">
                                     {% if result.prediction == "Administración" %}
                                         <i class="fas fa-briefcase"></i>
-                                    {% elif result.prediction == "Contabilidad" %}
-                                        <i class="fas fa-calculator"></i>
-                                    {% elif result.prediction == "Recursos Humanos" %}
-                                        <i class="fas fa-users"></i>
+                                    {% elif result.prediction == "Enfermería" %}
+                                        <i class="fas fa-heartbeat"></i>
+                                    {% elif result.prediction == "Limpieza" %}
+                                        <i class="fas fa-broom"></i>
+                                    {% elif result.prediction == "Técnica Enfermera" %}
+                                        <i class="fas fa-stethoscope"></i>
+                                    {% elif result.prediction == "Seguridad" %}
+                                        <i class="fas fa-shield-alt"></i>
                                     {% else %}
                                         <i class="fas fa-warehouse"></i>
                                     {% endif %}
@@ -147,17 +152,6 @@
                                 <div>
                                     <p class="clinica-reclutamiento__area-label">Área recomendada</p>
                                     <p class="clinica-reclutamiento__area-value">{{ result.prediction }}</p>
-                                </div>
-                            </div>
-                            
-                            <div class="clinica-reclutamiento__skills-section">
-                                <h4 class="clinica-reclutamiento__skills-title">
-                                    <i class="fas fa-star"></i> Habilidades detectadas
-                                </h4>
-                                <div class="clinica-reclutamiento__skills-tags">
-                                    <span class="clinica-reclutamiento__skill-tag">Organización</span>
-                                    <span class="clinica-reclutamiento__skill-tag">Office</span>
-                                    <span class="clinica-reclutamiento__skill-tag">Comunicación</span>
                                 </div>
                             </div>
                             
@@ -186,7 +180,7 @@
                             <button class="clinica-reclutamiento__action-btn clinica-reclutamiento__save-btn">
                                 <i class="fas fa-save"></i> Guardar
                             </button>
-                            <button class="clinica-reclutamiento__action-btn clinica-reclutamiento__contact-btn">
+                            <button class="clinica-reclutamiento__action-btn clinica-reclutamiento__contact-btn" disabled title="Número de celular no encontrado">
                                 <i class="fas fa-envelope"></i> Contactar
                             </button>
                         </div>
@@ -235,19 +229,129 @@
                 </div>
             </section>
             {% endif %}
+
+            <!-- Sección de resultados anteriores -->
+            {% if previous_results %}
+            <section class="clinica-reclutamiento__results-section">
+                <div class="clinica-reclutamiento__section-header">
+                    <h2><i class="fas fa-history"></i> Resultados Anteriores</h2>
+                    <div class="clinica-reclutamiento__export-actions">
+                        <button class="clinica-reclutamiento__export-btn">
+                            <i class="fas fa-file-excel"></i> Exportar a Excel
+                        </button>
+                        <button class="clinica-reclutamiento__export-btn">
+                            <i class="fas fa-file-pdf"></i> Generar Reporte
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Filtros de resultados -->
+                <div class="clinica-reclutamiento__filters">
+                    <div class="clinica-reclutamiento__filter-group">
+                        <label for="areaFilterPrev"><i class="fas fa-filter"></i> Filtrar por área:</label>
+                        <select id="areaFilterPrev" class="clinica-reclutamiento__filter-select">
+                            <option value="all">Todas las áreas</option>
+                            <option value="administración">Administración</option>
+                            <option value="enfermería">Enfermería</option>
+                            <option value="limpieza">Limpieza</option>
+                            <option value="técnica enfermera">Técnica Enfermera</option>
+                            <option value="seguridad">Seguridad</option>
+                        </select>
+                    </div>
+                    <div class="clinica-reclutamiento__filter-group">
+                        <label for="scoreFilterPrev"><i class="fas fa-star"></i> Puntaje mínimo:</label>
+                        <input type="range" id="scoreFilterPrev" min="0" max="100" value="50" class="clinica-reclutamiento__filter-range">
+                        <span id="scoreValuePrev" class="clinica-reclutamiento__range-value">50%</span>
+                    </div>
+                </div>
+                
+                <!-- Resultados individuales -->
+                <div class="clinica-reclutamiento__results-grid">
+                    {% for result in previous_results %}
+                    <div class="clinica-reclutamiento__result-card" data-area="{{ result.prediction|lower }}" data-score="{{ result.results[result.prediction] }}">
+                        <div class="clinica-reclutamiento__card-header">
+                            <h3 class="clinica-reclutamiento__candidate-title">Candidato ({{ result.timestamp }})</h3>
+                            <span class="clinica-reclutamiento__match-badge" style="background-color: {{ 'var(--clinica-success)' if result.results[result.prediction]|float > 70 else 'var(--clinica-warning)' }}">
+                                {{ result.results[result.prediction] }}% Match
+                            </span>
+                        </div>
+                        
+                        <div class="clinica-reclutamiento__card-body">
+                            <div class="clinica-reclutamiento__main-prediction">
+                                <div class="clinica-reclutamiento__prediction-icon">
+                                    {% if result.prediction == "Administración" %}
+                                        <i class="fas fa-briefcase"></i>
+                                    {% elif result.prediction == "Enfermería" %}
+                                        <i class="fas fa-heartbeat"></i>
+                                    {% elif result.prediction == "Limpieza" %}
+                                        <i class="fas fa-broom"></i>
+                                    {% elif result.prediction == "Técnica Enfermera" %}
+                                        <i class="fas fa-stethoscope"></i>
+                                    {% elif result.prediction == "Seguridad" %}
+                                        <i class="fas fa-shield-alt"></i>
+                                    {% else %}
+                                        <i class="fas fa-warehouse"></i>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <p class="clinica-reclutamiento__area-label">Área recomendada</p>
+                                    <p class="clinica-reclutamiento__area-value">{{ result.prediction }}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="clinica-reclutamiento__probabilities">
+                                <h4 class="clinica-reclutamiento__prob-title">
+                                    <i class="fas fa-chart-bar"></i> Probabilidades por Área
+                                </h4>
+                                {% for area, prob in result.results.items() %}
+                                <div class="clinica-reclutamiento__prob-item">
+                                    <div class="clinica-reclutamiento__prob-info">
+                                        <span class="clinica-reclutamiento__prob-area">{{ area }}</span>
+                                        <span class="clinica-reclutamiento__prob-value">{{ prob }}%</span>
+                                    </div>
+                                    <div class="clinica-reclutamiento__progress-container">
+                                        <div class="clinica-reclutamiento__progress-bar" style="width: {{ prob }}%; background-color: {% if area == result.prediction %}var(--clinica-primary){% else %}var(--clinica-secondary){% endif %}"></div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                        <div class="clinica-reclutamiento__card-footer">
+                            <button class="clinica-reclutamiento__action-btn">
+                                <i class="fas fa-eye"></i> Ver Detalles
+                            </button>
+                            <button class="clinica-reclutamiento__action-btn clinica-reclutamiento__save-btn">
+                                <i class="fas fa-save"></i> Guardar
+                            </button>
+                            <button class="clinica-reclutamiento__action-btn clinica-reclutamiento__contact-btn" disabled title="Número de celular no encontrado">
+                                <i class="fas fa-envelope"></i> Contactar
+                            </button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+            {% else %}
+            <section class="clinica-reclutamiento__results-section">
+                <div class="clinica-reclutamiento__section-header">
+                    <h2><i class="fas fa-history"></i> Resultados Anteriores</h2>
+                </div>
+                <p class="clinica-reclutamiento__no-results">No hay resultados anteriores para este usuario.</p>
+            </section>
+            {% endif %}
         </main>
 
         <!-- Footer premium -->
         <footer class="clinica-reclutamiento__footer">
             <div class="clinica-reclutamiento__footer-content">
                 <p class="clinica-reclutamiento__copyright">
-                    &copy; 2025 Clínica Bolívar - Sistema Inteligente de Reclutamiento
+                    © 2025 Clínica Bolívar - Sistema Inteligente de Reclutamiento
                 </p>
                 <div class="clinica-reclutamiento__footer-links">
                     <a href="{{ url_for('index') }}" class="clinica-reclutamiento__footer-link">
                         <i class="fas fa-home"></i> Inicio
                     </a>
-                    
                 </div>
             </div>
         </footer>
