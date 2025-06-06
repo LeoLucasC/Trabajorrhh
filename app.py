@@ -26,7 +26,7 @@ def init_db():
 init_db()
 
 # Cargar el modelo preentrenado
-model = joblib.load('model.pkl')
+model = joblib.load('modelo_mejorado.pkl')
 
 @app.route('/')
 def index():
