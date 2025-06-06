@@ -2,10 +2,6 @@ import os
 import sqlite3
 import PyPDF2
 from flask import Flask, request, render_template, redirect, url_for
-import pandas as pd
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.naive_bayes import MultinomialNB
-from sklearn.pipeline import make_pipeline
 import joblib
 
 # Crear la aplicación Flask
@@ -29,25 +25,7 @@ def init_db():
 # Inicializar la base de datos al arrancar la aplicación
 init_db()
 
-# Crear un dataset ficticio y entrenar el modelo de machine learning
-data = {
-    'texto': [
-        "5 años de experiencia en gestión de oficinas, manejo de presupuestos, planificación de recursos humanos",
-        "Experiencia en limpieza de hospitales, uso de productos desinfectantes, mantenimiento de áreas comunes",
-        "Enfermera titulada, 3 años en cuidado de pacientes, primeros auxilios, experiencia en UCI",
-        "Técnica en enfermería, asistencia en quirófano, manejo de equipos médicos, 2 años apoyando a enfermeras",
-        "Vigilante de seguridad, control de accesos, 2 años en empresas privadas, conocimientos en monitoreo"
-    ],
-    'etiqueta': ["Administración", "Limpieza", "Enfermería", "Técnica Enfermera", "Seguridad"]
-}
-df = pd.DataFrame(data)
-
-# Entrenar el modelo
-model = make_pipeline(TfidfVectorizer(), MultinomialNB())
-model.fit(df['texto'], df['etiqueta'])
-
-# Guardar y cargar el modelo
-joblib.dump(model, 'model.pkl')
+# Cargar el modelo preentrenado
 model = joblib.load('model.pkl')
 
 @app.route('/')
@@ -95,6 +73,7 @@ def welcome():
                 except Exception as e:
                     return render_template('welcome.html', name=name, cargo=cargo, error="Error al leer un PDF. Asegúrate de que todos sean archivos válidos.")
 
+                # Clasificar el CV
                 prediction = model.predict([text])[0]
                 probabilities = model.predict_proba([text])[0]
                 areas = model.classes_
