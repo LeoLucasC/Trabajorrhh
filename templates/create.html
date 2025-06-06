@@ -2,33 +2,152 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Clínica Bolívar - Crear Personal</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clínica Bolívar - Reclutamiento de Personal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/create.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
 </head>
 <body>
-    <div class="container">
-        <img src="{{ url_for('static', filename='images/logoclinica.png') }}" alt="Clínica Bolívar Logo" class="logo">
-        <h1>Crear Nuevo Personal</h1>
-        <form method="post" action="{{ url_for('add_personal') }}" id="addPersonalForm">
-            <div class="form-group">
-                <label for="name">Ingresa tu nombre:</label>
-                <input type="text" id="name" name="name" required>
+    <div class="clinica-bolivar__background">
+        <div class="clinica-bolivar__particles"></div>
+        
+        <div class="clinica-bolivar__auth-container">
+            <div class="clinica-form__card">
+                <div class="clinica-form__header">
+                    <img src="{{ url_for('static', filename='images/logo.webp') }}" alt="Clínica Bolívar Logo" class="clinica-form__logo">
+                    <h1 class="clinica-form__title">Reclutamiento de Personal</h1>
+                    <p class="clinica-form__subtitle">Complete el formulario para registrar nuevo personal</p>
+                </div>
+                
+                <form method="post" action="{{ url_for('add_personal') }}" id="clinicaPersonalForm" class="clinica-form__body">
+                    <div class="clinica-form__progress">
+                        <div class="clinica-form__progress-step active" data-step="1"></div>
+                        <div class="clinica-form__progress-step" data-step="2"></div>
+                        <div class="clinica-form__progress-step" data-step="3"></div>
+                    </div>
+                    
+                    <!-- Paso 1: Información Básica -->
+                    <div class="clinica-form__step active" data-step="1">
+                        <div class="clinica-form__group">
+                            <label for="name" class="clinica-form__label">
+                                <i class="fas fa-user"></i> Nombre completo
+                            </label>
+                            <input type="text" id="name" name="name" class="clinica-form__input" required placeholder="Ej: María González">
+                            <span class="clinica-form__focus"></span>
+                        </div>
+                        
+                        <div class="clinica-form__group">
+                            <label for="dni" class="clinica-form__label">
+                                <i class="fas fa-id-card"></i> Documento de Identidad
+                            </label>
+                            <input type="text" id="dni" name="dni" class="clinica-form__input" required placeholder="Ej: 12345678">
+                            <span class="clinica-form__focus"></span>
+                        </div>
+                        
+                        
+                        <div class="clinica-form__actions">
+                            <button type="button" class="clinica-button clinica-button--next" data-next="2">
+                                Siguiente <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Paso 2: Información Laboral -->
+                    <div class="clinica-form__step" data-step="2">
+                        <div class="clinica-form__group">
+                            <label for="cargo" class="clinica-form__label">
+                                <i class="fas fa-briefcase"></i> Cargo
+                            </label>
+                            <select id="cargo" name="cargo" class="clinica-form__select" required>
+                                <option value="" disabled selected>Seleccione su cargo</option>
+                                <option value="Administración">Administración</option>
+                                <option value="Limpieza">Limpieza</option>
+                                <option value="Enfermería">Enfermería</option>
+                                <option value="Técnica Enfermera">Técnica Enfermera</option>
+                                <option value="Seguridad">Seguridad</option>
+                                <option value="Médico">Médico</option>
+                                <option value="Técnico">Técnico</option>
+                            </select>
+                            <span class="clinica-form__focus"></span>
+                        </div>
+                        
+                        
+                        
+                        <div class="clinica-form__group">
+                            <label for="fecha_ingreso" class="clinica-form__label">
+                                <i class="fas fa-calendar-alt"></i> Fecha de ingreso
+                            </label>
+                            <input type="date" id="fecha_ingreso" name="fecha_ingreso" class="clinica-form__input" required>
+                            <span class="clinica-form__focus"></span>
+                        </div>
+                        
+                        <div class="clinica-form__actions">
+                            <button type="button" class="clinica-button clinica-button--prev" data-prev="1">
+                                <i class="fas fa-arrow-left"></i> Anterior
+                            </button>
+                            <button type="button" class="clinica-button clinica-button--next" data-next="3">
+                                Siguiente <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Paso 3: Documentación y Confirmación -->
+                    <div class="clinica-form__step" data-step="3">
+                        <div class="clinica-form__group">
+                            <label class="clinica-form__label">
+                                <i class="fas fa-file-upload"></i> Documentación requerida
+                            </label>
+                            <div class="clinica-form__file-upload">
+                                <input type="file" id="cv" name="cv" class="clinica-form__file-input" accept=".pdf,.doc,.docx">
+                                <label for="cv" class="clinica-form__file-label">
+                                    <i class="fas fa-cloud-upload-alt"></i> Subir CV (PDF o Word)
+                                </label>
+                            </div>
+                            
+                            <div class="clinica-form__file-upload">
+                                <input type="file" id="documentos" name="documentos" class="clinica-form__file-input" accept=".pdf,.jpg,.png" multiple>
+                                <label for="documentos" class="clinica-form__file-label">
+                                    <i class="fas fa-cloud-upload-alt"></i> Subir documentos de identidad
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="clinica-form__group clinica-form__group--checkbox">
+                            <input type="checkbox" id="terminos" name="terminos" class="clinica-form__checkbox" required>
+                            <label for="terminos" class="clinica-form__checkbox-label">
+                                Acepto los términos y condiciones de reclutamiento de la Clínica Bolívar
+                            </label>
+                        </div>
+                        
+                        <div class="clinica-form__preview">
+                            <h4 class="clinica-form__preview-title">Resumen de información</h4>
+                            <div id="resumenInfo" class="clinica-form__preview-content"></div>
+                        </div>
+                        
+                        <div class="clinica-form__actions clinica-form__actions--final">
+                            <button type="button" class="clinica-button clinica-button--prev" data-prev="2">
+                                <i class="fas fa-arrow-left"></i> Anterior
+                            </button>
+                            <button type="submit" class="clinica-button clinica-button--submit">
+                                <i class="fas fa-user-plus"></i> Registrar Personal
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                
+                <div class="clinica-form__footer">
+                    <a href="{{ url_for('index') }}" class="clinica-button clinica-button--link">
+                        <i class="fas fa-sign-in-alt"></i> Volver al inicio de sesión
+                    </a>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="cargo">De qué cargo eres:</label>
-                <select id="cargo" name="cargo" required>
-                    <option value="" disabled selected>Selecciona tu cargo</option>
-                    <option value="Administración">Administración</option>
-                    <option value="Limpieza">Limpieza</option>
-                    <option value="Enfermería">Enfermería</option>
-                    <option value="Técnica Enfermera">Técnica Enfermera</option>
-                    <option value="Seguridad">Seguridad</option>
-                </select>
-            </div>
-            <button type="submit">Agregar Personal</button>
-        </form>
-        <a href="{{ url_for('index') }}">Volver a Iniciar Sesión</a>
+        </div>
     </div>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='js/create.js') }}"></script>
 </body>
 </html>

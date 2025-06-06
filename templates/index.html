@@ -2,28 +2,86 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Clínica Bolívar - Iniciar Sesión</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clínica Bolívar - Portal de Reclutamiento IA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/inicio.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
 </head>
 <body>
-    <div class="container">
-        <img src="{{ url_for('static', filename='images/logoclinica.png') }}" alt="Clínica Bolívar Logo" class="logo">
-        <h1>Bienvenido al Sistema de Reclutamiento con IA</h1>
-        <h2>Iniciar Sesión</h2>
-        {% if personal_list %}
-            <ul class="personal-list">
-                {% for personal in personal_list %}
-                    <li>
-                        {{ personal[1] }} ({{ personal[2] }})
-                        <a href="{{ url_for('welcome', personal_id=personal[0]) }}" class="ingresar-btn">Ingresar</a>
+    <div class="clinica-bolivar__background">
+        <div class="clinica-bolivar__particles"></div>
+        
+        <main class="clinica-bolivar__auth-container">
+            <div class="clinica-bolivar__wave-container">
+                <div class="clinica-bolivar__orbital-ring ring-1"></div>
+                <div class="clinica-bolivar__orbital-ring ring-2"></div>
+                <div class="clinica-bolivar__orbital-ring ring-3"></div>
+                <div class="clinica-bolivar__logo-core">
+                    <img src="{{ url_for('static', filename='images/logo.webp') }}" 
+                        alt="Clínica Bolívar - Excelencia Médica" 
+                        class="clinica-bolivar__static-logo">
+                </div>
+            </div>
+            
+            <div class="clinica-bolivar__card">
+                <h1 class="clinica-bolivar__title">
+                    <span class="clinica-bolivar__title-highlight">Sistema de Reclutamiento</span>
+                    <br>con Inteligencia Artificial
+                </h1>
+                
+                <div class="clinica-bolivar__divider">
+                    <span class="clinica-bolivar__divider-line"></span>
+                    <span class="clinica-bolivar__divider-text">Iniciar Sesión</span>
+                    <span class="clinica-bolivar__divider-line"></span>
+                </div>
+                
+                {% if personal_list %}
+                <ul class="clinica-bolivar__staff-list">
+                    {% for personal in personal_list %}
+                    <li class="clinica-bolivar__staff-item">
+                        <div class="clinica-bolivar__staff-info">
+                            <span class="clinica-bolivar__staff-name">{{ personal[1] }}</span>
+                            <span class="clinica-bolivar__staff-role">{{ personal[2] }}</span>
+                        </div>
+                        <a href="{{ url_for('welcome', personal_id=personal[0]) }}" 
+                            class="clinica-bolivar__login-btn">
+                            <span>Ingresar</span>
+                            <svg class="clinica-bolivar__btn-icon" viewBox="0 0 24 24">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
                     </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>No hay personal registrado. Crea uno nuevo.</p>
-        {% endif %}
-        <a href="{{ url_for('create') }}">Crear Nuevo Personal</a>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <div class="clinica-bolivar__empty-state">
+                    <svg class="clinica-bolivar__empty-icon" viewBox="0 0 24 24">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                    </svg>
+                    <p class="clinica-bolivar__empty-text">No hay personal registrado</p>
+                </div>
+                {% endif %}
+                
+                <div class="clinica-bolivar__footer-actions">
+                    <a href="{{ url_for('create') }}" class="clinica-bolivar__create-link">
+                        <svg class="clinica-bolivar__add-icon" viewBox="0 0 24 24">
+                            <path d="M12 5v14M5 12h14"/>
+                        </svg>
+                        Crear Nuevo Personal
+                    </a>
+                </div>
+            </div>
+            
+            <div class="clinica-bolivar__watermark">
+                <p>© 2025 Clínica Bolívar - Todos los derechos reservados</p>
+                <p>Sistema de Reclutamiento IA v2.0</p>
+            </div>
+        </main>
     </div>
+    
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>

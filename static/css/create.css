@@ -1,0 +1,456 @@
+:root {
+    /* Paleta de colores corporativa */
+    --clinica-primary: #00A3E0;
+    --clinica-primary-dark: #0085b7;
+    --clinica-primary-light: #e6f5fc;
+    --clinica-secondary: #8DC63F;
+    --clinica-secondary-dark: #6d9e2f;
+    --clinica-accent: #FFD100;
+    --clinica-accent-dark: #e6bc00;
+    --clinica-dark: #2D2D2D;
+    --clinica-dark-light: #4a4a4a;
+    --clinica-light: #FFFFFF;
+    --clinica-background: #F8F9FA;
+    --clinica-gray: #e9ecef;
+    --clinica-gray-dark: #ced4da;
+    
+    /* Colores adicionales */
+    --clinica-success: #4CAF50;
+    --clinica-success-dark: #3d8b40;
+    --clinica-warning: #FFC107;
+    --clinica-warning-dark: #e6ac00;
+    --clinica-error: #F44336;
+    --clinica-error-dark: #d32f2f;
+    --clinica-info: #2196F3;
+    
+    /* Sombras */
+    --clinica-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --clinica-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+    --clinica-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.2);
+    --clinica-shadow-inset: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    
+    /* Bordes */
+    --clinica-border-radius: 12px;
+    --clinica-border-radius-sm: 6px;
+    --clinica-border-radius-lg: 16px;
+    
+    /* Espaciado */
+    --clinica-spacing-xs: 0.5rem;
+    --clinica-spacing-sm: 1rem;
+    --clinica-spacing-md: 1.5rem;
+    --clinica-spacing-lg: 2rem;
+    --clinica-spacing-xl: 3rem;
+    
+    /* Transiciones */
+    --clinica-transition: all 0.3s ease;
+    
+    /* Efectos */
+    --clinica-gradient: linear-gradient(135deg, var(--clinica-primary) 0%, var(--clinica-secondary) 100%);
+}
+
+/* Reset y estilos base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--clinica-background);
+    color: var(--clinica-dark);
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+/* Fondo con efecto de partículas */
+.clinica-bolivar__background {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--clinica-light) 0%, var(--clinica-primary-light) 100%);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--clinica-spacing-xl);
+}
+
+.clinica-bolivar__particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%2300a3e0' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+/* Contenedor principal */
+.clinica-bolivar__auth-container {
+    width: 100%;
+    max-width: 800px;
+    position: relative;
+    z-index: 2;
+}
+
+/* Tarjeta del formulario */
+.clinica-form__card {
+    background-color: var(--clinica-light);
+    border-radius: var(--clinica-border-radius-lg);
+    box-shadow: var(--clinica-shadow-lg);
+    overflow: hidden;
+    transition: var(--clinica-transition);
+}
+
+.clinica-form__header {
+    padding: var(--clinica-spacing-lg);
+    text-align: center;
+    background: var(--clinica-gradient);
+    color: var(--clinica-light);
+    position: relative;
+}
+
+.clinica-form__logo {
+    height: 100px;
+    margin-bottom: var(--clinica-spacing-sm);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.clinica-form__title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: var(--clinica-spacing-xs);
+}
+
+.clinica-form__subtitle {
+    font-size: 1rem;
+    opacity: 0.9;
+    font-weight: 400;
+}
+
+/* Barra de progreso */
+.clinica-form__progress {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--clinica-spacing-md) var(--clinica-spacing-lg);
+    background-color: var(--clinica-gray);
+    position: relative;
+}
+
+.clinica-form__progress::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: var(--clinica-spacing-lg);
+    right: var(--clinica-spacing-lg);
+    height: 2px;
+    background-color: var(--clinica-gray-dark);
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.clinica-form__progress-step {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--clinica-gray-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--clinica-dark);
+    font-weight: 600;
+    position: relative;
+    z-index: 2;
+    transition: var(--clinica-transition);
+}
+
+.clinica-form__progress-step.active {
+    background-color: var(--clinica-primary);
+    color: var(--clinica-light);
+    box-shadow: 0 0 0 4px var(--clinica-primary-light);
+}
+
+/* Cuerpo del formulario */
+.clinica-form__body {
+    padding: var(--clinica-spacing-lg);
+}
+
+.clinica-form__step {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+.clinica-form__step.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Grupos de formulario */
+.clinica-form__group {
+    margin-bottom: var(--clinica-spacing-md);
+    position: relative;
+}
+
+.clinica-form__label {
+    display: block;
+    margin-bottom: var(--clinica-spacing-xs);
+    font-weight: 500;
+    color: var(--clinica-dark-light);
+}
+
+.clinica-form__label i {
+    margin-right: var(--clinica-spacing-xs);
+    color: var(--clinica-primary);
+}
+
+.clinica-form__input,
+.clinica-form__select {
+    width: 100%;
+    padding: var(--clinica-spacing-sm) var(--clinica-spacing-md);
+    border: 1px solid var(--clinica-gray-dark);
+    border-radius: var(--clinica-border-radius-sm);
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    transition: var(--clinica-transition);
+    background-color: var(--clinica-light);
+}
+
+.clinica-form__input:focus,
+.clinica-form__select:focus {
+    outline: none;
+    border-color: var(--clinica-primary);
+    box-shadow: 0 0 0 3px var(--clinica-primary-light);
+}
+
+.clinica-form__focus {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--clinica-primary);
+    transition: var(--clinica-transition);
+}
+
+.clinica-form__input:focus ~ .clinica-form__focus {
+    width: 100%;
+}
+
+.clinica-form__select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%232D2D2D' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--clinica-spacing-md) center;
+    background-size: 16px;
+    padding-right: var(--clinica-spacing-xl);
+}
+
+/* Subida de archivos */
+.clinica-form__file-upload {
+    margin-bottom: var(--clinica-spacing-sm);
+}
+
+.clinica-form__file-input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.clinica-form__file-label {
+    display: flex;
+    align-items: center;
+    padding: var(--clinica-spacing-sm) var(--clinica-spacing-md);
+    background-color: var(--clinica-gray);
+    border-radius: var(--clinica-border-radius-sm);
+    cursor: pointer;
+    transition: var(--clinica-transition);
+}
+
+.clinica-form__file-label:hover {
+    background-color: var(--clinica-gray-dark);
+}
+
+.clinica-form__file-label i {
+    margin-right: var(--clinica-spacing-sm);
+    color: var(--clinica-primary);
+}
+
+/* Checkbox personalizado */
+.clinica-form__group--checkbox {
+    display: flex;
+    align-items: center;
+    margin-top: var(--clinica-spacing-lg);
+}
+
+.clinica-form__checkbox {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--clinica-gray-dark);
+    border-radius: var(--clinica-border-radius-sm);
+    margin-right: var(--clinica-spacing-sm);
+    cursor: pointer;
+    position: relative;
+    transition: var(--clinica-transition);
+}
+
+.clinica-form__checkbox:checked {
+    background-color: var(--clinica-primary);
+    border-color: var(--clinica-primary);
+}
+
+.clinica-form__checkbox:checked::after {
+    content: '\f00c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--clinica-light);
+    font-size: 0.8rem;
+}
+
+.clinica-form__checkbox-label {
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--clinica-dark-light);
+}
+
+/* Vista previa */
+.clinica-form__preview {
+    margin-top: var(--clinica-spacing-lg);
+    padding: var(--clinica-spacing-md);
+    background-color: var(--clinica-gray);
+    border-radius: var(--clinica-border-radius-sm);
+}
+
+.clinica-form__preview-title {
+    font-size: 1.1rem;
+    margin-bottom: var(--clinica-spacing-sm);
+    color: var(--clinica-dark);
+}
+
+.clinica-form__preview-content {
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+/* Botones */
+.clinica-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--clinica-spacing-sm) var(--clinica-spacing-md);
+    border: none;
+    border-radius: var(--clinica-border-radius-sm);
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--clinica-transition);
+    text-decoration: none;
+}
+
+.clinica-button i {
+    margin-right: var(--clinica-spacing-xs);
+}
+
+.clinica-button--next,
+.clinica-button--submit {
+    background-color: var(--clinica-primary);
+    color: var(--clinica-light);
+}
+
+.clinica-button--next:hover,
+.clinica-button--submit:hover {
+    background-color: var(--clinica-primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--clinica-shadow-sm);
+}
+
+.clinica-button--prev {
+    background-color: var(--clinica-gray);
+    color: var(--clinica-dark);
+}
+
+.clinica-button--prev:hover {
+    background-color: var(--clinica-gray-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--clinica-shadow-sm);
+}
+
+.clinica-button--link {
+    background-color: transparent;
+    color: var(--clinica-primary);
+    padding: 0;
+}
+
+.clinica-button--link:hover {
+    text-decoration: underline;
+}
+
+/* Acciones del formulario */
+.clinica-form__actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: var(--clinica-spacing-lg);
+}
+
+.clinica-form__actions--final {
+    justify-content: flex-end;
+    gap: var(--clinica-spacing-md);
+}
+
+/* Pie de página del formulario */
+.clinica-form__footer {
+    padding: var(--clinica-spacing-md) var(--clinica-spacing-lg);
+    text-align: center;
+    border-top: 1px solid var(--clinica-gray);
+}
+
+.clinica-form__footer-text {
+    margin-bottom: var(--clinica-spacing-sm);
+    color: var(--clinica-dark-light);
+    font-size: 0.9rem;
+}
+
+.clinica-form__footer-link {
+    color: var(--clinica-primary);
+    text-decoration: none;
+}
+
+.clinica-form__footer-link:hover {
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .clinica-bolivar__background {
+        padding: var(--clinica-spacing-md);
+    }
+    
+    .clinica-form__title {
+        font-size: 1.5rem;
+    }
+    
+    .clinica-form__subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .clinica-form__actions {
+        flex-direction: column;
+        gap: var(--clinica-spacing-sm);
+    }
+    
+    .clinica-button {
+        width: 100%;
+        margin-bottom: var(--clinica-spacing-sm);
+    }
+}

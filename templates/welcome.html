@@ -2,61 +2,259 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Clínica Bolívar - Subir CVs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clínica Bolívar - Reclutamiento Inteligente</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/welcome.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
 </head>
-<body>
-    <header>
-        <img src="{{ url_for('static', filename='images/logoclinica.png') }}" alt="Clínica Bolívar Logo" class="logo">
-        <h1>Bienvenido, {{ name }} ({{ cargo }})</h1>
-    </header>
-    <main>
-        <section class="upload-section">
-            <h2>Subir Múltiples CVs</h2>
-            <form method="post" enctype="multipart/form-data" id="uploadForm">
-                <input type="hidden" name="name" value="{{ name }}">
-                <input type="hidden" name="cargo" value="{{ cargo }}">
-                <div class="form-group">
-                    <label for="files">Selecciona tus CVs (PDF, múltiples):</label>
-                    <input type="file" id="files" name="files" accept=".pdf" multiple required>
+<body class="clinica-reclutamiento__body">
+    <!-- Fondo animado con partículas -->
+    <div class="clinica-reclutamiento__particles"></div>
+    
+    <!-- Contenedor principal -->
+    <div class="clinica-reclutamiento__container">
+        <!-- Header premium -->
+        <header class="clinica-reclutamiento__header">
+            <div class="clinica-reclutamiento__logo-container">
+                <img src="{{ url_for('static', filename='images/logo.webp') }}" alt="Clínica Bolívar Logo" class="clinica-reclutamiento__logo">
+                <div class="clinica-reclutamiento__user-info">
+                    <h1 class="clinica-reclutamiento__welcome-title">Bienvenido, <span class="clinica-reclutamiento__user-name">{{ name }}</span></h1>
+                    <div class="clinica-reclutamiento__user-badge">
+                        <i class="fas fa-user-tie"></i>
+                        <span>{{ cargo }}</span>
+                    </div>
                 </div>
-                <button type="submit" id="analyzeBtn">Analizar CVs</button>
-            </form>
-            {% if error %}
-                <p class="error">{{ error }}</p>
-            {% endif %}
-        </section>
+            </div>
+            <div class="clinica-reclutamiento__stats">
+                <div class="clinica-reclutamiento__stat-card">
+                    <i class="fas fa-file-upload"></i>
+                    <span class="clinica-reclutamiento__stat-value" id="totalUploads">0</span>
+                    <span class="clinica-reclutamiento__stat-label">CVs Analizados</span>
+                </div>
+                <div class="clinica-reclutamiento__stat-card">
+                    <i class="fas fa-check-circle"></i>
+                    <span class="clinica-reclutamiento__stat-value" id="successfulMatches">0</span>
+                    <span class="clinica-reclutamiento__stat-label">Coincidencias</span>
+                </div>
+            </div>
+        </header>
 
-        {% if results_list %}
-            <section class="results-section">
-                <h2>Resultados de Análisis</h2>
-                {% for result in results_list %}
-                    <div class="result-card">
-                        <h3>CV Analizado</h3>
-                        <p><strong>Área Asignada:</strong> {{ result.prediction }}</p>
-                        <h4>Probabilidades por Área</h4>
-                        <div class="probabilities">
-                            {% for area, prob in result.results.items() %}
-                                <div class="probability-card">
-                                    <p>{{ area }}</p>
-                                    <div class="progress-bar">
-                                        <div class="progress" style="width: {{ prob }}%">{{ prob }}%</div>
+        <!-- Contenido principal -->
+        <main class="clinica-reclutamiento__main">
+            <!-- Sección de carga de CVs -->
+            <section class="clinica-reclutamiento__upload-section">
+                <div class="clinica-reclutamiento__section-header">
+                    <h2><i class="fas fa-cloud-upload-alt"></i> Subir Múltiples CVs</h2>
+                    <div class="clinica-reclutamiento__section-tooltip">
+                        <i class="fas fa-info-circle"></i>
+                        <span class="clinica-reclutamiento__tooltip-text">Puedes seleccionar múltiples archivos PDF para analizar simultáneamente</span>
+                    </div>
+                </div>
+                
+                <form method="post" enctype="multipart/form-data" id="uploadForm" class="clinica-reclutamiento__upload-form">
+                    <input type="hidden" name="name" value="{{ name }}">
+                    <input type="hidden" name="cargo" value="{{ cargo }}">
+                    
+                    <div class="clinica-reclutamiento__drag-drop-area" id="dropArea">
+                        <i class="fas fa-file-pdf clinica-reclutamiento__upload-icon"></i>
+                        <p class="clinica-reclutamiento__drag-text">Arrastra tus CVs aquí o haz clic para seleccionar</p>
+                        <input type="file" id="files" name="files" accept=".pdf" multiple required class="clinica-reclutamiento__file-input">
+                        <label for="files" class="clinica-reclutamiento__file-label">Seleccionar archivos</label>
+                        <div class="clinica-reclutamiento__file-preview" id="filePreview"></div>
+                    </div>
+                    
+                    <div class="clinica-reclutamiento__form-actions">
+                        <button type="submit" id="analyzeBtn" class="clinica-reclutamiento__analyze-btn">
+                            <span class="clinica-reclutamiento__btn-text">Analizar CVs</span>
+                            <i class="fas fa-chart-line clinica-reclutamiento__btn-icon"></i>
+                        </button>
+                        <button type="button" id="clearBtn" class="clinica-reclutamiento__clear-btn">
+                            <i class="fas fa-trash-alt"></i> Limpiar
+                        </button>
+                    </div>
+                </form>
+                
+                {% if error %}
+                    <div class="clinica-reclutamiento__error-alert">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>{{ error }}</p>
+                    </div>
+                {% endif %}
+            </section>
+
+            <!-- Sección de resultados -->
+            {% if results_list %}
+            <section class="clinica-reclutamiento__results-section">
+                <div class="clinica-reclutamiento__section-header">
+                    <h2><i class="fas fa-chart-pie"></i> Resultados del Análisis</h2>
+                    <div class="clinica-reclutamiento__export-actions">
+                        <button class="clinica-reclutamiento__export-btn">
+                            <i class="fas fa-file-excel"></i> Exportar a Excel
+                        </button>
+                        <button class="clinica-reclutamiento__export-btn">
+                            <i class="fas fa-file-pdf"></i> Generar Reporte
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Filtros de resultados -->
+                <div class="clinica-reclutamiento__filters">
+                    <div class="clinica-reclutamiento__filter-group">
+                        <label for="areaFilter"><i class="fas fa-filter"></i> Filtrar por área:</label>
+                        <select id="areaFilter" class="clinica-reclutamiento__filter-select">
+                            <option value="all">Todas las áreas</option>
+                            <option value="administracion">Administración</option>
+                            <option value="contabilidad">Contabilidad</option>
+                            <option value="rrhh">Recursos Humanos</option>
+                            <option value="logistica">Logística</option>
+                        </select>
+                    </div>
+                    <div class="clinica-reclutamiento__filter-group">
+                        <label for="scoreFilter"><i class="fas fa-star"></i> Puntaje mínimo:</label>
+                        <input type="range" id="scoreFilter" min="0" max="100" value="50" class="clinica-reclutamiento__filter-range">
+                        <span id="scoreValue" class="clinica-reclutamiento__range-value">50%</span>
+                    </div>
+                </div>
+                
+                <!-- Resultados individuales -->
+                <div class="clinica-reclutamiento__results-grid">
+                    {% for result in results_list %}
+                    <div class="clinica-reclutamiento__result-card" data-area="{{ result.prediction|lower }}" data-score="{{ result.results[result.prediction] }}">
+                        <div class="clinica-reclutamiento__card-header">
+                            <h3 class="clinica-reclutamiento__candidate-title">Candidato #{{ loop.index }}</h3>
+                            <span class="clinica-reclutamiento__match-badge" style="background-color: {{ 'var(--clinica-success)' if result.results[result.prediction]|float > 70 else 'var(--clinica-warning)' }}">
+                                {{ result.results[result.prediction] }}% Match
+                            </span>
+                        </div>
+                        
+                        <div class="clinica-reclutamiento__card-body">
+                            <div class="clinica-reclutamiento__main-prediction">
+                                <div class="clinica-reclutamiento__prediction-icon">
+                                    {% if result.prediction == "Administración" %}
+                                        <i class="fas fa-briefcase"></i>
+                                    {% elif result.prediction == "Contabilidad" %}
+                                        <i class="fas fa-calculator"></i>
+                                    {% elif result.prediction == "Recursos Humanos" %}
+                                        <i class="fas fa-users"></i>
+                                    {% else %}
+                                        <i class="fas fa-warehouse"></i>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <p class="clinica-reclutamiento__area-label">Área recomendada</p>
+                                    <p class="clinica-reclutamiento__area-value">{{ result.prediction }}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="clinica-reclutamiento__skills-section">
+                                <h4 class="clinica-reclutamiento__skills-title">
+                                    <i class="fas fa-star"></i> Habilidades detectadas
+                                </h4>
+                                <div class="clinica-reclutamiento__skills-tags">
+                                    <span class="clinica-reclutamiento__skill-tag">Organización</span>
+                                    <span class="clinica-reclutamiento__skill-tag">Office</span>
+                                    <span class="clinica-reclutamiento__skill-tag">Comunicación</span>
+                                </div>
+                            </div>
+                            
+                            <div class="clinica-reclutamiento__probabilities">
+                                <h4 class="clinica-reclutamiento__prob-title">
+                                    <i class="fas fa-chart-bar"></i> Probabilidades por Área
+                                </h4>
+                                {% for area, prob in result.results.items() %}
+                                <div class="clinica-reclutamiento__prob-item">
+                                    <div class="clinica-reclutamiento__prob-info">
+                                        <span class="clinica-reclutamiento__prob-area">{{ area }}</span>
+                                        <span class="clinica-reclutamiento__prob-value">{{ prob }}%</span>
+                                    </div>
+                                    <div class="clinica-reclutamiento__progress-container">
+                                        <div class="clinica-reclutamiento__progress-bar" style="width: {{ prob }}%; background-color: {% if area == result.prediction %}var(--clinica-primary){% else %}var(--clinica-secondary){% endif %}"></div>
                                     </div>
                                 </div>
-                            {% endfor %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                        <div class="clinica-reclutamiento__card-footer">
+                            <button class="clinica-reclutamiento__action-btn">
+                                <i class="fas fa-eye"></i> Ver Detalles
+                            </button>
+                            <button class="clinica-reclutamiento__action-btn clinica-reclutamiento__save-btn">
+                                <i class="fas fa-save"></i> Guardar
+                            </button>
+                            <button class="clinica-reclutamiento__action-btn clinica-reclutamiento__contact-btn">
+                                <i class="fas fa-envelope"></i> Contactar
+                            </button>
                         </div>
                     </div>
-                {% endfor %}
-                <h2>Estadísticas Generales</h2>
-                <div id="chart-container">
-                    <!-- Gráfica se generará dinámicamente con JavaScript -->
+                    {% endfor %}
+                </div>
+                
+                <!-- Estadísticas generales -->
+                <div class="clinica-reclutamiento__general-stats">
+                    <h3 class="clinica-reclutamiento__stats-title">
+                        <i class="fas fa-chart-line"></i> Estadísticas Generales
+                    </h3>
+                    
+                    <div class="clinica-reclutamiento__stats-grid">
+                        <div class="clinica-reclutamiento__stats-chart">
+                            <canvas id="areaDistributionChart"></canvas>
+                        </div>
+                        <div class="clinica-reclutamiento__stats-summary">
+                            <div class="clinica-reclutamiento__summary-card">
+                                <h4>Área más solicitada</h4>
+                                <p class="clinica-reclutamiento__summary-value" id="topArea">Administración</p>
+                                <div class="clinica-reclutamiento__summary-progress">
+                                    <div class="clinica-reclutamiento__summary-progress-bar" style="width: 65%;"></div>
+                                </div>
+                            </div>
+                            <div class="clinica-reclutamiento__summary-card">
+                                <h4>Puntaje promedio</h4>
+                                <p class="clinica-reclutamiento__summary-value" id="avgScore">72%</p>
+                                <div class="clinica-reclutamiento__summary-progress">
+                                    <div class="clinica-reclutamiento__summary-progress-bar" style="width: 72%;"></div>
+                                </div>
+                            </div>
+                            <div class="clinica-reclutamiento__summary-card">
+                                <h4>Candidatos destacados</h4>
+                                <p class="clinica-reclutamiento__summary-value" id="topCandidates">3</p>
+                                <div class="clinica-reclutamiento__stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
-        {% endif %}
-    </main>
-    <footer>
-        <a href="{{ url_for('index') }}">Volver al Inicio</a>
-    </footer>
+            {% endif %}
+        </main>
+
+        <!-- Footer premium -->
+        <footer class="clinica-reclutamiento__footer">
+            <div class="clinica-reclutamiento__footer-content">
+                <p class="clinica-reclutamiento__copyright">
+                    &copy; 2025 Clínica Bolívar - Sistema Inteligente de Reclutamiento
+                </p>
+                <div class="clinica-reclutamiento__footer-links">
+                    <a href="{{ url_for('index') }}" class="clinica-reclutamiento__footer-link">
+                        <i class="fas fa-home"></i> Inicio
+                    </a>
+                    
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ url_for('static', filename='js/welcome.js') }}"></script>
 </body>
 </html>

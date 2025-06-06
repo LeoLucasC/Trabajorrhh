@@ -1,177 +1,902 @@
-body {
-    font-family: 'Arial', sans-serif;
+:root {
+    /* Paleta de colores corporativa */
+    --clinica-primary: #00A3E0;
+    --clinica-secondary: #8DC63F;
+    --clinica-accent: #FFD100;
+    --clinica-dark: #2D2D2D;
+    --clinica-light: #FFFFFF;
+    --clinica-background: #F8F9FA;
+    
+    /* Colores adicionales */
+    --clinica-success: #4CAF50;
+    --clinica-warning: #FFC107;
+    --clinica-error: #F44336;
+    --clinica-info: #2196F3;
+    --clinica-gray: #E0E0E0;
+    --clinica-gray-dark: #757575;
+    
+    /* Sombras */
+    --clinica-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --clinica-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+    --clinica-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.2);
+    --clinica-shadow-inset: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    
+    /* Bordes */
+    --clinica-border-radius: 12px;
+    --clinica-border-radius-sm: 6px;
+    --clinica-border-radius-lg: 16px;
+    
+    /* Espaciado */
+    --clinica-spacing-xs: 0.5rem;
+    --clinica-spacing-sm: 1rem;
+    --clinica-spacing-md: 1.5rem;
+    --clinica-spacing-lg: 2rem;
+    --clinica-spacing-xl: 3rem;
+    
+    /* Transiciones */
+    --clinica-transition: all 0.3s ease;
+    
+    /* Gradientes */
+    --clinica-gradient-primary: linear-gradient(135deg, var(--clinica-primary) 0%, #0077B6 100%);
+    --clinica-gradient-accent: linear-gradient(135deg, var(--clinica-accent) 0%, #FFA000 100%);
+}
+
+/* Reset y estilos base */
+* {
     margin: 0;
     padding: 0;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #87CEEB 0%, #B0E0E6 100%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-header {
-    text-align: center;
-    padding: 20px 0;
-    background-color: #4682B4;
-    width: 100%;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.logo {
-    max-width: 200px;
-    margin-bottom: 10px;
-}
-
-h1 {
-    color: #FFFFFF;
-    font-size: 24px;
-    margin: 0;
-}
-
-main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    width: 100%;
-    max-width: 800px;
-}
-
-.upload-section, .results-section {
-    background-color: #FFFFFF;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    width: 100%;
-}
-
-h2 {
-    color: #4682B4;
-    font-size: 22px;
-    margin-bottom: 15px;
-}
-
-.form-group {
-    margin-bottom: 15px;
-    text-align: left;
-}
-
-label {
-    color: #4682B4;
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
-}
-
-input[type="file"] {
-    width: 100%;
-    padding: 10px;
-    border: 2px solid #87CEEB;
-    border-radius: 8px;
     box-sizing: border-box;
-    background-color: #F0F8FF;
 }
 
-button {
+body {
+    font-family: 'Montserrat', 'Poppins', sans-serif;
+    color: var(--clinica-dark);
+    line-height: 1.6;
+    background-color: var(--clinica-background);
+}
+
+/* Fondo con efecto de partículas */
+.clinica-reclutamiento__particles {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    padding: 12px;
-    background-color: #4682B4;
-    color: #FFFFFF;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%2300a3e0' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+    z-index: 0;
 }
 
-button:hover {
-    background-color: #356891;
+/* Contenedor principal */
+.clinica-reclutamiento__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: var(--clinica-spacing-xl);
+    position: relative;
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: var(--clinica-border-radius-lg);
+    box-shadow: var(--clinica-shadow-lg);
+    margin-top: var(--clinica-spacing-xl);
+    margin-bottom: var(--clinica-spacing-xl);
 }
 
-.error {
-    color: #FF3333;
-    margin-top: 10px;
+/* Header */
+.clinica-reclutamiento__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--clinica-spacing-xl);
+    padding-bottom: var(--clinica-spacing-md);
+    border-bottom: 1px solid var(--clinica-gray);
+}
+
+.clinica-reclutamiento__logo-container {
+    display: flex;
+    align-items: center;
+    gap: var(--clinica-spacing-md);
+    font-size: 4rem;
+}
+
+.clinica-reclutamiento__logo {
+    height: 120px;
+    width: auto;
+}
+
+
+
+
+.clinica-reclutamiento__user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.clinica-reclutamiento__welcome-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--clinica-dark);
+}
+
+.clinica-reclutamiento__user-name {
+    color: var(--clinica-primary);
+    font-weight: 700;
+}
+
+.clinica-reclutamiento__user-badge {
+    background-color: var(--clinica-secondary);
+    color: white;
+    padding: var(--clinica-spacing-xs) var(--clinica-spacing-sm);
+    border-radius: var(--clinica-border-radius-sm);
+    font-size: 0.8rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: var(--clinica-spacing-xs);
+}
+
+.clinica-reclutamiento__stats {
+    display: flex;
+    gap: var(--clinica-spacing-md);
+}
+
+.clinica-reclutamiento__stat-card {
+    background: white;
+    padding: var(--clinica-spacing-sm) var(--clinica-spacing-md);
+    border-radius: var(--clinica-border-radius);
+    box-shadow: var(--clinica-shadow-sm);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 120px;
+    transition: var(--clinica-transition);
+}
+
+.clinica-reclutamiento__stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--clinica-shadow-md);
+}
+
+.clinica-reclutamiento__stat-card i {
+    font-size: 1.5rem;
+    color: var(--clinica-primary);
+    margin-bottom: var(--clinica-spacing-xs);
+}
+
+.clinica-reclutamiento__stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--clinica-dark);
+}
+
+.clinica-reclutamiento__stat-label {
+    font-size: 0.8rem;
+    color: var(--clinica-gray-dark);
     text-align: center;
 }
 
-.result-card {
-    background-color: #F0F8FF;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    animation: fadeIn 0.5s ease-in-out;
+/* Sección de carga */
+.clinica-reclutamiento__upload-section {
+    background: white;
+    border-radius: var(--clinica-border-radius);
+    padding: var(--clinica-spacing-lg);
+    margin-bottom: var(--clinica-spacing-xl);
+    box-shadow: var(--clinica-shadow-sm);
 }
 
-h3, h4 {
-    color: #4682B4;
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
-.probabilities {
+.clinica-reclutamiento__section-header {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--clinica-spacing-lg);
 }
 
-.probability-card {
-    background-color: #F0F8FF;
-    padding: 10px;
-    border-radius: 8px;
-    animation: slideIn 0.5s ease-in-out;
+.clinica-reclutamiento__section-header h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--clinica-dark);
+    display: flex;
+    align-items: center;
+    gap: var(--clinica-spacing-sm);
 }
 
-.probability-card p {
-    margin: 0 0 5px 0;
-    color: #333;
+.clinica-reclutamiento__section-header i {
+    color: var(--clinica-primary);
 }
 
-.progress-bar {
-    background-color: #E0E0E0;
-    border-radius: 5px;
-    height: 20px;
+.clinica-reclutamiento__section-tooltip {
+    position: relative;
+    cursor: pointer;
+}
+
+.clinica-reclutamiento__section-tooltip i {
+    color: var(--clinica-gray-dark);
+    font-size: 1.1rem;
+}
+
+.clinica-reclutamiento__tooltip-text {
+    visibility: hidden;
+    width: 200px;
+    background-color: var(--clinica-dark);
+    color: white;
+    text-align: center;
+    border-radius: var(--clinica-border-radius-sm);
+    padding: var(--clinica-spacing-sm);
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 0.8rem;
+    font-weight: 400;
+}
+
+.clinica-reclutamiento__section-tooltip:hover .clinica-reclutamiento__tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+.clinica-reclutamiento__drag-drop-area {
+    border: 2px dashed var(--clinica-gray);
+    border-radius: var(--clinica-border-radius);
+    padding: var(--clinica-spacing-xl) var(--clinica-spacing-lg);
+    text-align: center;
+    cursor: pointer;
+    transition: var(--clinica-transition);
+    margin-bottom: var(--clinica-spacing-md);
+    position: relative;
     overflow: hidden;
 }
 
-.progress {
-    background-color: #4682B4;
-    height: 100%;
-    color: #FFFFFF;
-    text-align: right;
-    padding-right: 5px;
-    line-height: 20px;
-    transition: width 1s ease-in-out;
+.clinica-reclutamiento__drag-drop-area:hover {
+    border-color: var(--clinica-primary);
+    background-color: rgba(0, 163, 224, 0.05);
 }
 
-#chart-container {
-    margin-top: 20px;
-    width: 100%;
+.clinica-reclutamiento__drag-drop-area.active {
+    border-color: var(--clinica-primary);
+    background-color: rgba(0, 163, 224, 0.1);
 }
 
-footer {
-    padding: 20px;
+.clinica-reclutamiento__upload-icon {
+    font-size: 3rem;
+    color: var(--clinica-primary);
+    margin-bottom: var(--clinica-spacing-sm);
+}
+
+.clinica-reclutamiento__drag-text {
+    color: var(--clinica-gray-dark);
+    margin-bottom: var(--clinica-spacing-md);
+    font-weight: 500;
+}
+
+.clinica-reclutamiento__file-input {
+    display: none;
+}
+
+.clinica-reclutamiento__file-label {
+    background-color: var(--clinica-primary);
+    color: white;
+    padding: var(--clinica-spacing-sm) var(--clinica-spacing-lg);
+    border-radius: var(--clinica-border-radius);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--clinica-transition);
+    display: inline-block;
+}
+
+.clinica-reclutamiento__file-label:hover {
+    background-color: #0088c4;
+    transform: translateY(-2px);
+    box-shadow: var(--clinica-shadow-sm);
+}
+
+.clinica-reclutamiento__file-preview {
+    margin-top: var(--clinica-spacing-md);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--clinica-spacing-sm);
+}
+
+.clinica-reclutamiento__file-preview-item {
+    background-color: var(--clinica-background);
+    padding: var(--clinica-spacing-xs) var(--clinica-spacing-sm);
+    border-radius: var(--clinica-border-radius-sm);
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: var(--clinica-spacing-xs);
+}
+
+.clinica-reclutamiento__file-preview-item i {
+    color: var(--clinica-error);
+    cursor: pointer;
+}
+
+.clinica-reclutamiento__form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--clinica-spacing-md);
+}
+
+.clinica-reclutamiento__analyze-btn {
+    background: var(--clinica-gradient-primary);
+    color: white;
+    border: none;
+    padding: var(--clinica-spacing-sm) var(--clinica-spacing-lg);
+    border-radius: var(--clinica-border-radius);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--clinica-transition);
+    display: flex;
+    align-items: center;
+    gap: var(--clinica-spacing-sm);
+    box-shadow: var(--clinica-shadow-sm);
+}
+
+.clinica-reclutamiento__analyze-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--clinica-shadow-md);
+    background: linear-gradient(135deg, #0088c4 0%, #006699 100%);
+}
+
+.clinica-reclutamiento__analyze-btn:disabled {
+    background: var(--clinica-gray);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.clinica-reclutamiento__clear-btn {
+    background-color: transparent;
+    color: var(--clinica-gray-dark);
+    border: 1px solid var(--clinica-gray);
+    padding: var(--clinica-spacing-sm) var(--clinica-spacing-lg);
+    border-radius: var(--clinica-border-radius);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--clinica-transition);
+    display: flex;
+    align-items: center;
+    gap: var(--clinica-spacing-sm);
+}
+
+.clinica-reclutamiento__clear-btn:hover {
+    background-color: var(--clinica-background);
+    color: var(--clinica-error);
+    border-color: var(--clinica-error);
+}
+
+/* Mensajes de error */
+.clinica-reclutamiento__error-alert {
+    background-color: rgba(244, 67, 54, 0.1);
+    border-left: 4px solid var(--clinica-error);
+    padding: var(--clinica-spacing-md);
+    border-radius: 0 var(--clinica-border-radius-sm) var(--clinica-border-radius-sm) 0;
+    margin-top: var(--clinica-spacing-md);
+    display: flex;
+    align-items: center;
+    gap: var(--clinica-spacing-sm);
+}
+
+.clinica-reclutamiento__error-alert i {
+    color: var(--clinica-error);
+    font-size: 1.2rem;
+}
+
+.clinica-reclutamiento__error-alert p {
+    color: var(--clinica-error);
+    font-weight: 500;
+}
+
+/* Sección de resultados */
+.clinica-reclutamiento__results-section {
+    background: white;
+    border-radius: var(--clinica-border-radius);
+    padding: var(--clinica-spacing-lg);
+    box-shadow: var(--clinica-shadow-sm);
+}
+
+.clinica-reclutamiento__export-actions {
+    display: flex;
+    gap: var(--clinica-spacing-sm);
+}
+
+.clinica-reclutamiento__export-btn {
+    background-color: white;
+    color: var(--clinica-primary);
+    border: 1px solid var(--clinica-primary);
+    padding: var(--clinica-spacing-xs) var(--clinica-spacing-sm);
+    border-radius: var(--clinica-border-radius-sm);
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--clinica-transition);
+    display: flex;
+    align-items: center;
+    gap: var(--clinica-spacing-xs);
+}
+
+.clinica-reclutamiento__export-btn:hover {
+    background-color: var(--clinica-primary);
+    color: white;
+    box-shadow: var(--clinica-shadow-sm);
+}
+
+.clinica-reclutamiento__export-btn i {
+    font-size: 0.9rem;
+}
+
+/* Filtros */
+.clinica-reclutamiento__filters {
+    display: flex;
+    gap: var(--clinica-spacing-lg);
+    margin-bottom: var(--clinica-spacing-lg);
+    padding: var(--clinica-spacing-md) 0;
+    border-bottom: 1px solid var(--clinica-gray);
+}
+
+.clinica-reclutamiento__filter-group {
+    display: flex;
+    align-items: center;
+    gap: var(--clinica-spacing-sm);
+}
+
+.clinica-reclutamiento__filter-group label {
+    font-size: 0.9rem;
+    color: var(--clinica-gray-dark);
+    display: flex;
+    align-items: center;
+    gap: var(--clinica-spacing-xs);
+}
+
+.clinica-reclutamiento__filter-group label i {
+    color: var(--clinica-primary);
+}
+
+.clinica-reclutamiento__filter-select {
+    padding: var(--clinica-spacing-xs) var(--clinica-spacing-sm);
+    border-radius: var(--clinica-border-radius-sm);
+    border: 1px solid var(--clinica-gray);
+    font-size: 0.9rem;
+    background-color: white;
+    transition: var(--clinica-transition);
+}
+
+.clinica-reclutamiento__filter-select:focus {
+    outline: none;
+    border-color: var(--clinica-primary);
+    box-shadow: 0 0 0 2px rgba(0, 163, 224, 0.2);
+}
+
+.clinica-reclutamiento__filter-range {
+    width: 150px;
+    -webkit-appearance: none;
+    height: 6px;
+    background: var(--clinica-gray);
+    border-radius: 3px;
+    outline: none;
+}
+
+.clinica-reclutamiento__filter-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--clinica-primary);
+    cursor: pointer;
+    transition: var(--clinica-transition);
+}
+
+.clinica-reclutamiento__filter-range::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 5px rgba(0, 163, 224, 0.5);
+}
+
+.clinica-reclutamiento__range-value {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--clinica-primary);
+    min-width: 40px;
     text-align: center;
 }
 
-footer a {
-    color: #4682B4;
+/* Tarjetas de resultados */
+.clinica-reclutamiento__results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: var(--clinica-spacing-lg);
+    margin-bottom: var(--clinica-spacing-xl);
+}
+
+.clinica-reclutamiento__result-card {
+    background: white;
+    border-radius: var(--clinica-border-radius);
+    overflow: hidden;
+    box-shadow: var(--clinica-shadow-sm);
+    transition: var(--clinica-transition);
+    border: 1px solid var(--clinica-gray);
+}
+
+.clinica-reclutamiento__result-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--clinica-shadow-md);
+    border-color: var(--clinica-primary);
+}
+
+.clinica-reclutamiento__card-header {
+    padding: var(--clinica-spacing-md);
+    border-bottom: 1px solid var(--clinica-gray);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.clinica-reclutamiento__candidate-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--clinica-dark);
+}
+
+.clinica-reclutamiento__match-badge {
+    padding: var(--clinica-spacing-xs) var(--clinica-spacing-sm);
+    border-radius: var(--clinica-border-radius-sm);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: white;
+}
+
+.clinica-reclutamiento__card-body {
+    padding: var(--clinica-spacing-md);
+}
+
+.clinica-reclutamiento__main-prediction {
+    display: flex;
+    align-items: center;
+    gap: var(--clinica-spacing-md);
+    margin-bottom: var(--clinica-spacing-lg);
+}
+
+.clinica-reclutamiento__prediction-icon {
+    background-color: rgba(0, 163, 224, 0.1);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.clinica-reclutamiento__prediction-icon i {
+    font-size: 1.5rem;
+    color: var(--clinica-primary);
+}
+
+.clinica-reclutamiento__area-label {
+    font-size: 0.8rem;
+    color: var(--clinica-gray-dark);
+}
+
+.clinica-reclutamiento__area-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--clinica-dark);
+}
+
+.clinica-reclutamiento__skills-section {
+    margin-bottom: var(--clinica-spacing-lg);
+}
+
+.clinica-reclutamiento__skills-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--clinica-dark);
+    margin-bottom: var(--clinica-spacing-sm);
+    display: flex;
+    align-items: center;
+    gap: var(--clinica-spacing-xs);
+}
+
+.clinica-reclutamiento__skills-title i {
+    color: var(--clinica-accent);
+}
+
+.clinica-reclutamiento__skills-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--clinica-spacing-xs);
+}
+
+.clinica-reclutamiento__skill-tag {
+    background-color: rgba(141, 198, 63, 0.1);
+    color: var(--clinica-secondary);
+    padding: var(--clinica-spacing-xs) var(--clinica-spacing-sm);
+    border-radius: var(--clinica-border-radius-sm);
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+.clinica-reclutamiento__probabilities {
+    margin-top: var(--clinica-spacing-lg);
+}
+
+.clinica-reclutamiento__prob-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--clinica-dark);
+    margin-bottom: var(--clinica-spacing-sm);
+    display: flex;
+    align-items: center;
+    gap: var(--clinica-spacing-xs);
+}
+
+.clinica-reclutamiento__prob-title i {
+    color: var(--clinica-primary);
+}
+
+.clinica-reclutamiento__prob-item {
+    margin-bottom: var(--clinica-spacing-sm);
+}
+
+.clinica-reclutamiento__prob-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--clinica-spacing-xs);
+}
+
+.clinica-reclutamiento__prob-area {
+    font-size: 0.8rem;
+    color: var(--clinica-dark);
+}
+
+.clinica-reclutamiento__prob-value {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--clinica-primary);
+}
+
+.clinica-reclutamiento__progress-container {
+    height: 6px;
+    background-color: var(--clinica-gray);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.clinica-reclutamiento__progress-bar {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.5s ease;
+}
+
+.clinica-reclutamiento__card-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--clinica-spacing-md);
+    border-top: 1px solid var(--clinica-gray);
+    background-color: var(--clinica-background);
+}
+
+.clinica-reclutamiento__action-btn {
+    background-color: transparent;
+    border: none;
+    padding: var(--clinica-spacing-xs) var(--clinica-spacing-sm);
+    border-radius: var(--clinica-border-radius-sm);
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--clinica-transition);
+    display: flex;
+    align-items: center;
+    gap: var(--clinica-spacing-xs);
+}
+
+.clinica-reclutamiento__action-btn i {
+    font-size: 0.9rem;
+}
+
+.clinica-reclutamiento__action-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.clinica-reclutamiento__save-btn {
+    color: var(--clinica-secondary);
+}
+
+.clinica-reclutamiento__save-btn:hover {
+    background-color: rgba(141, 198, 63, 0.1);
+}
+
+.clinica-reclutamiento__contact-btn {
+    color: var(--clinica-primary);
+}
+
+.clinica-reclutamiento__contact-btn:hover {
+    background-color: rgba(0, 163, 224, 0.1);
+}
+
+/* Estadísticas generales */
+.clinica-reclutamiento__general-stats {
+    margin-top: var(--clinica-spacing-xl);
+    padding-top: var(--clinica-spacing-lg);
+    border-top: 1px solid var(--clinica-gray);
+}
+
+.clinica-reclutamiento__stats-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--clinica-dark);
+    margin-bottom: var(--clinica-spacing-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--clinica-spacing-sm);
+}
+
+.clinica-reclutamiento__stats-title i {
+    color: var(--clinica-primary);
+}
+
+.clinica-reclutamiento__stats-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--clinica-spacing-lg);
+}
+
+.clinica-reclutamiento__stats-chart {
+    background: white;
+    padding: var(--clinica-spacing-md);
+    border-radius: var(--clinica-border-radius);
+    box-shadow: var(--clinica-shadow-sm);
+    height: 300px;
+}
+
+.clinica-reclutamiento__stats-summary {
+    display: flex;
+    flex-direction: column;
+    gap: var(--clinica-spacing-md);
+}
+
+.clinica-reclutamiento__summary-card {
+    background: white;
+    padding: var(--clinica-spacing-md);
+    border-radius: var(--clinica-border-radius);
+    box-shadow: var(--clinica-shadow-sm);
+    flex: 1;
+}
+
+.clinica-reclutamiento__summary-card h4 {
+    font-size: 0.9rem;
+    color: var(--clinica-gray-dark);
+    margin-bottom: var(--clinica-spacing-sm);
+}
+
+.clinica-reclutamiento__summary-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--clinica-dark);
+    margin-bottom: var(--clinica-spacing-sm);
+}
+
+.clinica-reclutamiento__summary-progress {
+    height: 6px;
+    background-color: var(--clinica-gray);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.clinica-reclutamiento__summary-progress-bar {
+    height: 100%;
+    background: var(--clinica-gradient-primary);
+    border-radius: 3px;
+}
+
+.clinica-reclutamiento__stars {
+    color: var(--clinica-accent);
+    font-size: 1.2rem;
+}
+
+/* Footer */
+.clinica-reclutamiento__footer {
+    margin-top: var(--clinica-spacing-xl);
+    padding-top: var(--clinica-spacing-lg);
+    border-top: 1px solid var(--clinica-gray);
+}
+
+.clinica-reclutamiento__footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.clinica-reclutamiento__copyright {
+    font-size: 0.8rem;
+    color: var(--clinica-gray-dark);
+}
+
+.clinica-reclutamiento__footer-links {
+    display: flex;
+    gap: var(--clinica-spacing-lg);
+}
+
+.clinica-reclutamiento__footer-link {
+    color: var(--clinica-gray-dark);
+    font-size: 0.8rem;
     text-decoration: none;
-    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: var(--clinica-spacing-xs);
+    transition: var(--clinica-transition);
 }
 
-footer a:hover {
-    text-decoration: underline;
+.clinica-reclutamiento__footer-link:hover {
+    color: var(--clinica-primary);
 }
 
-/* Animaciones */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+.clinica-reclutamiento__footer-link i {
+    font-size: 0.9rem;
 }
 
-@keyframes slideIn {
-    from { transform: translateX(-20px); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
+/* Responsive */
+@media (max-width: 1200px) {
+    .clinica-reclutamiento__stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .clinica-reclutamiento__header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--clinica-spacing-md);
+    }
+    
+    .clinica-reclutamiento__stats {
+        width: 100%;
+        justify-content: space-between;
+        margin-top: var(--clinica-spacing-md);
+    }
+    
+    .clinica-reclutamiento__filters {
+        flex-direction: column;
+        gap: var(--clinica-spacing-md);
+    }
+    
+    .clinica-reclutamiento__footer-content {
+        flex-direction: column;
+        gap: var(--clinica-spacing-md);
+        text-align: center;
+    }
+    
+    .clinica-reclutamiento__footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .clinica-reclutamiento__container {
+        padding: var(--clinica-spacing-md);
+        margin-top: var(--clinica-spacing-md);
+        margin-bottom: var(--clinica-spacing-md);
+    }
+    
+    .clinica-reclutamiento__results-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .clinica-reclutamiento__card-footer {
+        flex-direction: column;
+        gap: var(--clinica-spacing-sm);
+    }
+    
+    .clinica-reclutamiento__form-actions {
+        flex-direction: column;
+    }
+    
+    .clinica-reclutamiento__analyze-btn,
+    .clinica-reclutamiento__clear-btn {
+        width: 100%;
+        justify-content: center;
+    }
 }
